@@ -15,6 +15,9 @@ vector<int> rooms;
 
 int main()
 {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
     cin >> N >> K;
     arr.reserve(N);
     rooms.resize(K);
@@ -25,7 +28,6 @@ int main()
         cin >> s >> e;
         arr.push_back({s, e});
     }
-
     sort(arr.begin(), arr.end());
 
     int ans = 0;
@@ -37,10 +39,9 @@ int main()
 
         for (int j = 0; j < K; j++)
         {
-            if (Use)
-                break; // 만약 회의실 차지했으면 그만 돌려도 됨.
+            if (Use) break;
 
-            if (cur.start > rooms[j]) // 현재 회의가 j번 회의실 종료보다 늦다면
+            if (cur.start > rooms[j])
             {
                 Use = true;
                 rooms[j] = cur.end;
