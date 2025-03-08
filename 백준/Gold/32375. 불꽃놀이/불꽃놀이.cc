@@ -2,8 +2,6 @@
 using namespace std;
 typedef long long ll;
 
-vector<ll> A, B;
-
 int main()
 {
     ios::sync_with_stdio(0);
@@ -13,36 +11,35 @@ int main()
     ll K;
     cin >> N >> K;
 
-    A.resize(N);
+    vector<ll> A(N);
     for (int i = 0; i < N; i++)
         cin >> A[i];
 
-    int single = 0;
-    for (ll x : A)
-    {
-        if (x >= K)
-            single++;
-        else
-            B.push_back(x);
-    }
+    sort(A.begin(), A.end());
 
-    sort(B.begin(), B.end());
+    auto it = lower_bound(A.begin(), A.end(), K);
 
-    int pair = 0;
-    int l = 0, r = B.size() - 1;
-    while (l < r)
+    // K 이상인 폭죽의 개수 (단일 사용 가능)
+    int ans = A.end() - it;
+
+    auto left = A.begin();
+    auto right = prev(it);
+
+    while (left < right)
     {
-        if (B[l] + B[r] >= K)
+        if (*left + *right >= K)
         {
-            pair++;
-            l++;
-            r--;
+            ans++;
+            left++;
+            right--;
         }
         else
-            l++;
+        {
+            left++;
+        }
     }
 
-    int ans = single + pair;
     cout << (ans == 0 ? -1 : ans);
+
     return 0;
 }
