@@ -114,25 +114,34 @@ OUTPUT& operator<< (OUTPUT& out, T i) { out.writeDouble(i); return out; }
 #define istream INPUT
 #define ostream OUTPUT
 /////////////////////////////////////////////////////////////////////////////////////////////
+
+string arr[50001];
+
 int main()
 {
     fastio;
     
     int N; cin >> N;
-    
-    unordered_map<string, int> um; um.reserve(N);
-    string s; s.reserve(100);
-    
-    while (N--)
+    string s;
+    for(int i=0;i<N;i++)
     {
         cin >> s;
-        um[s.substr(s.find('.')+1)]++;
+        arr[i] = s.substr(s.find(".") + 1);
     }
-
-    vector<pair<string, int>> ans(um.begin(), um.end());
-    sort(ans.begin(), ans.end());
-    for (const auto &pa : ans)
-        cout << pa.first << ' ' << pa.second << '\n';
+    
+    sort(arr, arr + N);
+    
+    int cnt = 1;
+    for (int i = 0; i < N; i++)
+    {
+        if (i < N - 1 && arr[i] == arr[i + 1]) 
+            cnt++;
+        else
+        {
+            cout << arr[i] << " " << cnt << "\n";
+            cnt = 1;
+        }
+    }
     
     return 0;
 }
