@@ -7,7 +7,6 @@ int N;
 string Nodes;
 vector<int> adj[MX];
 bool visited[MX];
-int parent[MX];
 
 string ans = "";
 
@@ -18,7 +17,6 @@ void bfs()
     
     q.push(0);
     visited[0] = true;
-    parent[0] = -1;
     
     ans += Nodes[0];
 
@@ -26,36 +24,31 @@ void bfs()
     {
         char maxChar = 0;
 
-        vector<int> currentLayer;
-        int sizeLayer = (int)q.size();
+        vector<int> cur_layer;
+        int layer_size = (int)q.size();
 
-        while (sizeLayer--)
+        while (layer_size--)
         {
             int c = q.front();
             q.pop();
-            currentLayer.push_back(c);
+            cur_layer.push_back(c);
 
             for (auto& n : adj[c])
-            {
                 if (!visited[n] && Nodes[n] >= maxChar)
-                {
                     maxChar = Nodes[n];
-                }
-            }
         }
 
         if (maxChar == 0) break;
 
         ans.push_back(maxChar);
 
-        for (int c : currentLayer)
+        for (int c : cur_layer)
         {
             for (auto& n : adj[c])
             {
                 if (!visited[n] && Nodes[n] == maxChar)
                 {
                     visited[n] = true;
-                    parent[n] = c;
                     q.push(n);
                 }
             }
