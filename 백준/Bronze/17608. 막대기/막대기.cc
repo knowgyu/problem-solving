@@ -3,23 +3,23 @@ using namespace std;
 
 int main()
 {
-    stack<int> st;
-    int N;
-    cin >> N;
-    for (int i = 0;i < N;i++) {
-        int num; cin >> num;
-        st.push(num);
-    }
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int N; cin >> N;
+    vector<int> st(N);
+    for(int i=0;i<N;i++)
+        cin >> st[i];
 
     int ans = 1;
-    int mx = st.top(); st.pop();
+    int mx = st.back(); st.pop_back();
     while (!st.empty())
     {
-        if (st.top() > mx) {
+        if (st.back() > mx) {
             ++ans;
-            mx = st.top();
+            mx = st.back();
         }
-        st.pop();
+        st.pop_back();
     }
     cout << ans;
     return 0;
