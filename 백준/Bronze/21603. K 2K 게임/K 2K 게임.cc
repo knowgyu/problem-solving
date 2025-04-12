@@ -5,10 +5,10 @@ int main()
     int N,K;cin >> N>>K;
     vector<int> ans;
     
-    K %= 10;
+    int K2 = K*2;
     for(int i=1;i<=N;i++)
     {
-        if (i%10 == K || i%10 == 2*K) continue;
+        if (i%10 == K%10 || i%10 == K2%10) continue;
         else ans.push_back(i);
     }
     
